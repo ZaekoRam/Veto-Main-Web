@@ -1,0 +1,7 @@
+# Copia lista para Hostinger (se genera con python build_public_html.py)
+public_html/
+public_html.zip
+__pycache__/
+
+# Configuración local de Claude Code
+.claude/

@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Veto Main — Habilidades, lineups y clips de Veto · VALORANT</title>
+  <meta name="description" content="Hub de un Veto Main: el kit de Veto en 3D, setups por mapa del pool actual y clips del Centinela que borra la utilidad.">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Veto Main — Hub de Veto (VALORANT)">
+  <meta property="og:description" content="El kit de Veto en 3D, setups por mapa y clips.">
+  <link rel="icon" href="assets/img/favicon.svg?v=20261011-5" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://media.valorant-api.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="styles.css?v=20261011-5">
+
+  <script>
+    /* Estado de entrada. Red de seguridad: nunca deja la página oculta. */
+    (function (d) {
+      d.className = d.className.replace("no-js", "js") + " intro";
+      setTimeout(function () { d.classList.remove("intro"); d.classList.add("entered"); }, 3000);
+    })(document.documentElement);
+  </script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-twitch" viewBox="0 0 24 24"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></symbol>
+    <symbol id="i-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.910 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.750-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l12-7.5z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M5 12h13M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-mark" viewBox="-50 -50 100 100"><path fill="currentColor" d="M-44-40h17.5L0 18 26.5-40H44L0 44z"/><path fill="currentColor" opacity=".45" d="M-8.5-40h17L0-21.5z"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main" data-i18n="skip">Saltar al contenido</a>
+
+  <!-- Escenario 3D fijo (hero + kit). veto-stage.js monta aquí el canvas -->
+  <div class="stage-backdrop" data-stage-backdrop aria-hidden="true"></div>
+  <!-- Arte oficial "VETO" detrás del canvas 3D (se desplaza con el inicio) -->
+  <div class="watermark" aria-hidden="true"><i class="wm wm--base"></i><i class="wm wm--ult"></i></div>
+  <div class="stage" data-stage aria-hidden="true">
+    <div class="stage-loader" data-stage-loader>
+      <span data-stage-pct>00%</span>
+      <span class="stage-loader-label" data-i18n="loader">Sincronizando ADN</span>
+    </div>
+    <div class="reticle" data-reticle>
+      <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="98" class="reticle-ring"/><path d="M100 0v10M100 190v10M0 100h10M190 100h10" class="reticle-tick"/></svg>
+      <span class="reticle-label" data-reticle-label>Evolución</span>
+    </div>
+  </div>
+
+  <!-- ================================================================ NAV -->
+  <header class="nav" data-nav>
+    <div class="nav-left">
+      <a class="pill pill--logo" href="#agente" aria-label="Veto Main — inicio" data-i18n-aria="logo.aria">
+        <svg class="mark" aria-hidden="true"><use href="#i-mark"/></svg>
+        <span>Veto Main</span>
+      </a>
+      <div class="pill pill--menu" data-menu>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-links" aria-label="Abrir menú" data-menu-btn>
+          <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+        <nav class="menu-links" id="menu-links" aria-label="Principal">
+          <a href="#interceptor" data-scramble>Interceptor</a>
+          <a href="#kit" data-scramble>Kit</a>
+          <a href="#lineups" data-scramble data-i18n="menu.maps">Mapas</a>
+          <a href="#clips" data-scramble>Clips</a>
+        </nav>
+      </div>
+    </div>
+    <div class="nav-right">
+    <button type="button" class="pill pill--lang" data-lang-toggle aria-label="Switch to English" lang="en">EN</button>
+    <a class="pill pill--cta" href="https://twitch.tv/vetomain" target="_blank" rel="noopener" data-social-link="twitch" data-live>
+      <i class="live-dot" aria-hidden="true"></i>
+      <svg aria-hidden="true"><use href="#i-twitch"/></svg>
+      <span data-scramble data-live-label>Twitch</span>
+    </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- =============================================================== HERO -->
+    <section class="hero" id="agente" data-3d aria-labelledby="hero-title">
+      <div class="dots" aria-hidden="true"></div>
+      <img class="hero-fallback" src="https://media.valorant-api.com/agents/92eeef5d-43b5-1d4a-8d03-b3927a09034b/fullportrait.png" alt="" width="2048" height="1860" loading="lazy" decoding="async">
+      <div class="hero-anchor" data-stage-anchor="hero" aria-hidden="true"></div>
+
+      <div class="hero-top" data-in>
+        <p class="eyebrow" data-i18n="hero.eyebrow">Agente 29 · Centinela · Senegal</p>
+        <div class="form-switch" role="group" aria-label="Forma de Veto" data-i18n-aria="form.aria">
+          <button type="button" class="is-active" aria-pressed="true" data-form="base">Base</button>
+          <button type="button" aria-pressed="false" data-form="ult" data-i18n="form.ult">Evolución</button>
+          <p class="form-hint"><span class="hint-fine" data-i18n="hint.fine">Pasa el mouse sobre él · arrastra para girarlo · <kbd>X</kbd></span><span class="hint-touch" data-i18n="hint.touch">Desliza para girarlo · tócalo para mutar</span></p>
+        </div>
+      </div>
+
+      <div class="hero-spacer"></div>
+
+      <div class="hero-bottom">
+        <div class="hero-left">
+          <h1 class="h-display" id="hero-title" aria-label="Veto Main">
+            <span data-scramble-in="200" aria-hidden="true">Veto</span><br>
+            <span data-scramble-in="500" aria-hidden="true">Main</span>
+          </h1>
+          <p class="hero-desc" data-in data-i18n="hero.desc">El kit, los setups por mapa y los clips de alguien que juega Veto cada ranked. El Centinela que borra la utilidad del rival antes de que haga su trabajo.</p>
+        </div>
+        <p class="h-display h-display--right" aria-label="Cero utilidad" data-i18n-aria="hero.right.aria">
+          <span data-scramble-in="700" aria-hidden="true" data-i18n="hero.zero">Cero</span><br>
+          <span data-scramble-in="1000" aria-hidden="true" data-i18n="hero.utility">Utilidad</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ========================================================= INTERCEPTOR -->
+    <!-- Sección alta con un bloque fijo (sticky): el orbe se queda quieto mientras bajas. -->
+    <section class="ix" id="interceptor" data-3d aria-labelledby="ix-title">
+      <div class="ix-sticky" data-stage-anchor="ix">
+        <div class="ix-hud">
+          <header class="ix-head">
+            <p class="eyebrow" data-i18n="ix.eyebrow">Firma · E</p>
+            <h2 class="h-section" id="ix-title">Interceptor</h2>
+          </header>
+
+          <div class="ix-count" aria-live="polite">
+            <span class="ix-count-label" data-i18n="ix.count">Utilidad destruida</span>
+            <span class="ix-count-num"><b data-ix-count>00</b>/06</span>
+          </div>
+
+          <ol class="ix-log" data-ix-log aria-label="Utilidad interceptada" data-i18n-aria="ix.log.aria">
+            <li data-i="0"><span class="ix-log-n">01</span><span class="ix-log-name" data-i18n="ix.grenade">Granada</span><span class="ix-log-state">—</span></li>
+            <li data-i="1"><span class="ix-log-n">02</span><span class="ix-log-name">Flash</span><span class="ix-log-state">—</span></li>
+            <li data-i="2"><span class="ix-log-n">03</span><span class="ix-log-name" data-i18n="ix.dart">Dardo de reconocimiento</span><span class="ix-log-state">—</span></li>
+            <li data-i="3"><span class="ix-log-n">04</span><span class="ix-log-name" data-i18n="ix.knife">Cuchillo</span><span class="ix-log-state">—</span></li>
+            <li data-i="4"><span class="ix-log-n">05</span><span class="ix-log-name">Molly</span><span class="ix-log-state">—</span></li>
+            <li data-i="5"><span class="ix-log-n">06</span><span class="ix-log-name" data-i18n="ix.drone">Dron</span><span class="ix-log-state">—</span></li>
+          </ol>
+
+          <dl class="ix-stats">
+            <div><dt data-i18n="ix.active">Activo</dt><dd>9 s</dd></div>
+            <div><dt data-i18n="ix.dmg">Daño a utilidad</dt><dd>800/s</dd></div>
+            <div><dt data-i18n="ix.hp">Vida</dt><dd>20 HP</dd></div>
+            <div><dt data-i18n="ix.cd">Recarga</dt><dd>45 s / 20 s</dd></div>
+          </dl>
+
+          <div class="ix-rail" aria-hidden="true"><i data-ix-fill></i><span data-ix-ticks></span></div>
+          <p class="ix-hint" data-ix-hint aria-hidden="true" data-i18n="ix.hint">Sigue bajando</p>
+
+          <div class="ix-tags" aria-hidden="true">
+            <span class="ix-tag" data-ix-tag="0" data-i18n="ix.grenade">Granada</span>
+            <span class="ix-tag" data-ix-tag="1">Flash</span>
+            <span class="ix-tag" data-ix-tag="2" data-i18n="ix.dart.short">Dardo</span>
+            <span class="ix-tag" data-ix-tag="3" data-i18n="ix.knife">Cuchillo</span>
+            <span class="ix-tag" data-ix-tag="4">Molly</span>
+            <span class="ix-tag" data-ix-tag="5" data-i18n="ix.drone">Dron</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ KIT -->
+    <section class="kit" id="kit" data-3d aria-labelledby="kit-title">
+      <div class="dots" aria-hidden="true"></div>
+      <h2 class="h-section kit-title" id="kit-title" data-reveal data-i18n="kit.title">Habilidades</h2>
+
+      <div class="kit-anchor" data-stage-anchor="kit" aria-hidden="true"></div>
+
+      <div class="kit-grid" role="group" aria-label="Habilidades de Veto" data-i18n-aria="kit.aria" data-kit data-reveal data-delay="150">
+        <button type="button" class="ab" data-ab="C" aria-pressed="false">
+          <img class="ab-icon" src="https://media.valorant-api.com/agents/92eeef5d-43b5-1d4a-8d03-b3927a09034b/abilities/grenade/displayicon.png" alt="" width="128" height="128" loading="lazy" decoding="async">
+          <span class="ab-main"><span class="ab-name"><span data-i18n="ab.C.name">Corte Transversal</span> <small>Crosscut</small></span><span class="ab-type"><kbd>C</kbd><span data-i18n="ab.basic">Básica · 200</span></span></span>
+          <span class="ab-more"><span class="ab-more-in"><span class="ab-desc" data-i18n="ab.C.desc">Coloca un vórtice y teletranspórtate a él mientras lo miras. Se recupera en la fase de compra.</span><span class="ab-stats" data-i18n="ab.C.stats">2 cargas · alcance 30 m · 20 HP</span></span></span>
+          <span class="ab-bar" aria-hidden="true"><i></i></span>
+        </button>
+        <button type="button" class="ab" data-ab="Q" aria-pressed="false">
+          <img class="ab-icon" src="https://media.valorant-api.com/agents/92eeef5d-43b5-1d4a-8d03-b3927a09034b/abilities/ability1/displayicon.png" alt="" width="128" height="128" loading="lazy" decoding="async">
+          <span class="ab-main"><span class="ab-name"><span data-i18n="ab.Q.name">Asfixia</span> <small>Chokehold</small></span><span class="ab-type"><kbd>Q</kbd><span data-i18n="ab.basic">Básica · 200</span></span></span>
+          <span class="ab-more"><span class="ab-more-in"><span class="ab-desc" data-i18n="ab.Q.desc">Lanza un fragmento de tu mutación: al tocar el suelo es una trampa que inmoviliza, ensordece y debilita.</span><span class="ab-stats" data-i18n="ab.Q.stats">1 carga · 4.5 s · 75 de deterioro</span></span></span>
+          <span class="ab-bar" aria-hidden="true"><i></i></span>
+        </button>
+        <button type="button" class="ab" data-ab="E" aria-pressed="false">
+          <img class="ab-icon" src="https://media.valorant-api.com/agents/92eeef5d-43b5-1d4a-8d03-b3927a09034b/abilities/ability2/displayicon.png" alt="" width="128" height="128" loading="lazy" decoding="async">
+          <span class="ab-main"><span class="ab-name">Interceptor</span><span class="ab-type"><kbd>E</kbd><span data-i18n="ab.sig">Firma · Gratis</span></span></span>
+          <span class="ab-more"><span class="ab-more-in"><span class="ab-desc" data-i18n="ab.E.desc">Colócalo y actívalo: destruye la utilidad que rebotaría en un jugador o que caería con disparos.</span><span class="ab-stats" data-i18n="ab.E.stats">9 s activo · 800 daño/s · 45 s / 20 s</span></span></span>
+          <span class="ab-bar" aria-hidden="true"><i></i></span>
+        </button>
+        <button type="button" class="ab ab--ult" data-ab="X" aria-pressed="false">
+          <img class="ab-icon" src="https://media.valorant-api.com/agents/92eeef5d-43b5-1d4a-8d03-b3927a09034b/abilities/ultimate/displayicon.png" alt="" width="128" height="128" loading="lazy" decoding="async">
+          <span class="ab-main"><span class="ab-name"><span data-i18n="ab.X.name">Evolución</span> <small>Evolution</small></span><span class="ab-type"><kbd>X</kbd><span data-i18n="ab.ult">Definitiva · 7 pts</span></span></span>
+          <span class="ab-more"><span class="ab-more-in"><span class="ab-desc" data-i18n="ab.X.desc">Muta al instante: potenciador de combate, regeneración e inmunidad a toda debilitación.</span><span class="ab-stats" data-i18n="ab.X.stats">40 HP/s · +10 % stim · 1 s</span></span></span>
+          <span class="ab-bar" aria-hidden="true"><i></i></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ LINEUPS -->
+    <section class="plain lineups" id="lineups" aria-labelledby="lu-title">
+      <div class="split-top">
+        <h2 class="h-section" id="lu-title" data-reveal data-i18n="lu.title">Setups<br>por mapa</h2>
+        <p class="split-desc" data-reveal data-delay="200" data-i18n="lu.desc">Los siete mapas del pool competitivo actual. Elige mapa, lado y habilidad: cada pin marca dónde pararte y dónde cae.</p>
+      </div>
+
+      <div class="lu-toolbar" data-reveal>
+        <div class="lu-maps" role="tablist" aria-label="Mapas" data-i18n-aria="lu.maps.aria" data-maps></div>
+        <div class="lu-filters">
+          <div class="toggles" role="group" aria-label="Lado" data-i18n-aria="lu.side.aria" data-filter="side">
+            <button type="button" class="is-active" aria-pressed="true" data-value="all" data-i18n="f.all">Todos</button>
+            <button type="button" aria-pressed="false" data-value="atk" data-i18n="f.atk">Ataque</button>
+            <button type="button" aria-pressed="false" data-value="def" data-i18n="f.def">Defensa</button>
+          </div>
+          <div class="toggles" role="group" aria-label="Habilidad" data-i18n-aria="lu.ability.aria" data-filter="ability">
+            <button type="button" class="is-active" aria-pressed="true" data-value="all" data-i18n="f.all">Todas</button>
+            <button type="button" aria-pressed="false" data-value="C">C</button>
+            <button type="button" aria-pressed="false" data-value="Q">Q</button>
+            <button type="button" aria-pressed="false" data-value="E">E</button>
+            <button type="button" aria-pressed="false" data-value="X">X</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lu-grid" data-reveal>
+        <div class="lu-board" data-board>
+          <div class="lu-board-art" data-board-art aria-hidden="true"></div>
+          <div class="lu-board-map">
+            <img class="lu-board-img" data-board-img alt="" width="1024" height="1024" decoding="async">
+            <svg class="lu-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" data-board-svg role="img" aria-label="Minimapa con setups" data-i18n-aria="lu.svg.aria"></svg>
+          </div>
+          <p class="lu-board-name"><span data-board-name>Abyss</span> <span data-i18n="lu.minimap">· minimapa</span></p>
+          <button type="button" class="lu-callouts-btn is-active" aria-pressed="true" data-callouts>Callouts</button>
+        </div>
+        <div class="lu-side">
+          <ul class="lu-list" data-lu-list aria-label="Setups del mapa" data-i18n-aria="lu.list.aria"></ul>
+          <article class="lu-detail" data-lu-detail aria-live="polite"></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== CLIPS -->
+    <section class="plain clips" id="clips" aria-labelledby="clips-title">
+      <div class="split-top">
+        <h2 class="h-section" id="clips-title" data-reveal data-i18n="clips.title">Highlights<br>y redes</h2>
+        <div class="split-desc" data-reveal data-delay="200">
+          <p data-i18n="clips.desc">Lo mejor del stream y de TikTok. Toca un clip para verlo aquí.</p>
+          <div class="toggles toggles--right" role="group" aria-label="Filtrar por plataforma" data-i18n-aria="clips.filter.aria" data-clip-filters>
+            <button type="button" class="is-active" aria-pressed="true" data-value="all" data-i18n="f.all">Todos</button>
+            <button type="button" aria-pressed="false" data-value="twitch">Twitch</button>
+            <button type="button" aria-pressed="false" data-value="tiktok">TikTok</button>
+            <button type="button" aria-pressed="false" data-value="x">X</button>
+            <button type="button" aria-pressed="false" data-value="youtube">YouTube</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="clip-grid" data-clip-grid></div>
+
+      <div class="rows" data-reveal>
+        <a class="row" href="https://twitch.tv/vetomain" target="_blank" rel="noopener" data-social-card="twitch">
+          <span class="row-label"><svg aria-hidden="true"><use href="#i-twitch"/></svg>Twitch</span>
+          <span class="row-main"><span data-handle data-scramble>vetomain</span></span>
+          <span class="row-meta"><span data-followers>12.4K</span> · <span data-schedule>Lun–Vie · 20:00 CDMX</span></span>
+          <svg class="row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="row" href="https://tiktok.com/@vetomain" target="_blank" rel="noopener" data-social-card="tiktok">
+          <span class="row-label"><svg aria-hidden="true"><use href="#i-tiktok"/></svg>TikTok</span>
+          <span class="row-main"><span data-handle data-scramble>@vetomain</span></span>
+          <span class="row-meta"><span data-followers>38.9K</span> · <span data-i18n="row.tiktok">clips diarios</span></span>
+          <svg class="row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="row" href="https://x.com/vetomain" target="_blank" rel="noopener" data-social-card="x">
+          <span class="row-label"><svg aria-hidden="true"><use href="#i-x"/></svg>X</span>
+          <span class="row-main"><span data-handle data-scramble>@vetomain</span></span>
+          <span class="row-meta"><span data-followers>6.1K</span> · <span data-i18n="row.x">parches y opiniones</span></span>
+          <svg class="row-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================= FOOTER -->
+  <footer class="footer">
+    <div class="footer-mark" aria-hidden="true"><i></i></div>
+    <div class="footer-body">
+      <div>
+        <p class="footer-brand"><svg class="mark" aria-hidden="true"><use href="#i-mark"/></svg>Veto Main</p>
+        <p class="footer-text" data-i18n="footer.text">Un hub para quien juega Veto en serio. Setups, clips y el kit en acción, desde ranked.</p>
+        <div class="footer-links">
+          <a href="https://twitch.tv/vetomain" target="_blank" rel="noopener" data-social-link="twitch" data-scramble>Twitch</a>
+          <a href="https://tiktok.com/@vetomain" target="_blank" rel="noopener" data-social-link="tiktok" data-scramble>TikTok</a>
+          <a href="https://x.com/vetomain" target="_blank" rel="noopener" data-social-link="x" data-scramble>X</a>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <p data-i18n="footer.legal1">Modelos 3D: “<a href="https://sketchfab.com/3d-models/veto-t-pose-35a9c490d5ea452d8a12eeb05513cd3e" target="_blank" rel="noopener">Veto (T-pose)</a>” y “<a href="https://sketchfab.com/3d-models/veto-ult-form-t-pose-03ab696c374a41ba8c8b23565e929b90" target="_blank" rel="noopener">Veto (Ult Form) (T-pose)</a>” por <a href="https://sketchfab.com/BojanV06" target="_blank" rel="noopener">BojanV06</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Texturas optimizadas; animación del kit generada en tiempo real. Modelo y animación de selección de agente, modelos de utilidad, arte, íconos y minimapas: Riot Games (vía tracker.gg, <a href="https://kingdomarchives.com" target="_blank" rel="noopener">Kingdom Archives</a> y <a href="https://valorant-api.com" target="_blank" rel="noopener">valorant-api.com</a>).</p>
+        <p data-i18n="footer.legal2">Proyecto de fans creado bajo la política “Legal Jibber Jabber” de Riot Games usando recursos propiedad de Riot Games. Riot Games no respalda ni patrocina este proyecto.</p>
+        <p class="footer-copy">© <span data-year>2026</span> Veto Main</p>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="player" data-player aria-labelledby="player-title">
+    <div class="player-inner">
+      <header class="player-head">
+        <p class="player-meta" data-player-meta></p>
+        <h2 class="player-title" id="player-title" data-player-title></h2>
+        <button type="button" class="player-close" data-player-close aria-label="Cerrar reproductor" data-i18n-aria="player.close">✕</button>
+      </header>
+      <div class="player-frame" data-player-frame></div>
+      <a class="player-out" data-player-out target="_blank" rel="noopener" data-i18n="player.out">Abrir en la plataforma →</a>
+    </div>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+
+  <script defer src="lib/three.min.js?v=20261011-5"></script>
+  <script defer src="lib/GLTFLoader.js?v=20261011-5"></script>
+  <script defer src="lib/meshopt_decoder.js?v=20261011-5"></script>
+  <script defer src="lib/RoomEnvironment.js?v=20261011-5"></script>
+  <script defer src="lib/manifest.js?v=20261011-5"></script>
+  <script defer src="lib/i18n.js?v=20261011-5"></script>
+  <script defer src="lib/veto-stage.js?v=20261011-5"></script>
+  <script defer src="main.js?v=20261011-5"></script>
+</body>
+</html>
